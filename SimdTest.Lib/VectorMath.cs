@@ -6,7 +6,7 @@ public class VectorMath
 {
     public static int VectorSum(int[] arr)
     {
-        var result = VectorSumGeneric(arr);
+        var result = VectorSumGeneric<int>(arr);
 
         var sum = default(int);
 
@@ -20,7 +20,7 @@ public class VectorMath
 
     public static long VectorSum(long[] arr)
     {
-        var result = VectorSumGeneric(arr);
+        var result = VectorSumGeneric<long>(arr);
 
         var sum = default(long);
 
@@ -34,7 +34,7 @@ public class VectorMath
 
     public static double VectorSum(double[] arr)
     {
-        var result = VectorSumGeneric(arr);
+        var result = VectorSumGeneric<double>(arr);
 
         var sum = default(double);
 
@@ -48,7 +48,7 @@ public class VectorMath
 
     public static float VectorSum(float[] arr)
     {
-        var result = VectorSumGeneric(arr);
+        var result = VectorSumGeneric<float>(arr);
 
         var sum = default(float);
 
@@ -60,47 +60,35 @@ public class VectorMath
         return sum;
     }
 
-    private static T[] VectorSumGeneric<T>(T[] arr) where T : struct
+    private static T[] VectorSumGeneric<T>(Span<T> arr) where T : struct
     {
-        var vectorLength = Vector<T>.Count;
-
-        if (arr.Length < vectorLength * 2)
-        {
-            return arr;
-        }
-
         var arrLength = arr.Length;
 
-        var span = new Span<T>(arr);
+        var vectorLength = Vector<T>.Count;
 
-        var batchCouplesCount = arrLength / (2 * vectorLength);
+        var vectorsCount = arrLength / vectorLength;
 
-        var remainingLength = arrLength % (2 * vectorLength);
+        var remainingLength = arrLength % vectorLength;
 
-        var batchLength = batchCouplesCount * vectorLength;
+        var sumVector = new Vector<T>();
 
-        var batchResultArr = new T[batchLength];
-
-        for (int i = 0; i < batchCouplesCount; i++)
+        for (int i = 0; i < vectorsCount; i++)
         {
-            var batch1 = span.Slice(2 * i * vectorLength, vectorLength);
-            var batch2 = span.Slice((2 * i + 1) * vectorLength, vectorLength);
+            var spanToAdd = arr.Slice(i * vectorLength, vectorLength);
 
-            var vector1 = new Vector<T>(batch1);
-            var vector2 = new Vector<T>(batch2);
+            var vectorToAdd = new Vector<T>(spanToAdd);
 
-            var sumVector = vector1 + vector2;
-
-            sumVector.CopyTo(batchResultArr, i * vectorLength);
+            sumVector += vectorToAdd;
         }
 
-        var remainingArr = span.Slice(arrLength - remainingLength, remainingLength).ToArray();
+        var resultArr = new T[vectorLength + remainingLength];
 
-        var result = new T[batchLength + remainingLength];
+        sumVector.CopyTo(resultArr);
 
-        batchResultArr.CopyTo(result, 0);
-        remainingArr.CopyTo(result, batchLength);
+        var remainingArr = arr.Slice(arrLength - remainingLength).ToArray();
 
-        return VectorSumGeneric(result);
+        remainingArr.CopyTo(resultArr, vectorLength);
+
+        return resultArr;
     }
 }
