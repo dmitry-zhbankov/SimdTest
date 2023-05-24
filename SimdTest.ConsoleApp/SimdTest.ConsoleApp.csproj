@@ -8,11 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SimdTest.Lib\SimdTest.Lib.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
+      <ProjectReference Include="..\SimdTest.Benchmarks\SimdTest.Benchmarks.csproj" />
     </ItemGroup>
 
 </Project>

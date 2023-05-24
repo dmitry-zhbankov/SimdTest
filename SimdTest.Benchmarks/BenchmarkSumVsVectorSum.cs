@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using SimdTest.Lib;
 
-namespace SimdTest.ConsoleApp;
+namespace SimdTest.Benchmarks;
 
 [RPlotExporter]
 public class BenchmarkSumVsVectorSum
