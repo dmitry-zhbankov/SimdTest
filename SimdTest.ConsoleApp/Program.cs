@@ -19,21 +19,34 @@ internal class Program
             arr[i] = random.Next(1, 10);
         }
 
+        Console.WriteLine("Test: VectorSum vs Sum");
+        Console.WriteLine($"Array length = {arr.Length}");
+        Console.WriteLine();
+
         var stopwatch = new Stopwatch();
-
-        var previousElapsed = 0L;
-
         stopwatch.Start();
 
         var sum1 = arr.Sum();
-        Console.WriteLine(previousElapsed = stopwatch.ElapsedTicks - previousElapsed);
-        Console.WriteLine(sum1);
+        var elapsed1 = stopwatch.ElapsedTicks;
+
+        Console.WriteLine("Sum");
+        Console.WriteLine($"Elapsed {elapsed1} ticks");
+        Console.WriteLine($"Result = {sum1}");
+
+        Console.WriteLine();
+        stopwatch.Restart();
 
         var sum2 = VectorMath.VectorSum(arr);
-        Console.WriteLine(previousElapsed = stopwatch.ElapsedTicks - previousElapsed);
-        Console.WriteLine(sum2);
+        var elapsed2 = stopwatch.ElapsedTicks;
+
+        Console.WriteLine("VectorSum");
+        Console.WriteLine($"Elapsed {elapsed2} ticks");
+        Console.WriteLine($"Result = {sum2}");
 
         stopwatch.Stop();
+        Console.WriteLine();
+
+        Console.WriteLine($"VectorSum is {((double)elapsed1 - elapsed2) / elapsed2:P} faster than Sum");
 #endif
     }
 }
