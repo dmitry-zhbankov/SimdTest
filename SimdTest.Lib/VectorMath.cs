@@ -64,6 +64,11 @@ public class VectorMath
     {
         var vectorLength = Vector<T>.Count;
 
+        if (arr.Length < vectorLength * 2)
+        {
+            return arr;
+        }
+
         var arrLength = arr.Length;
 
         var span = new Span<T>(arr);
@@ -96,11 +101,6 @@ public class VectorMath
         batchResultArr.CopyTo(result, 0);
         remainingArr.CopyTo(result, batchLength);
 
-        if (result.Length >= vectorLength * 2)
-        {
-            VectorSumGeneric(result);
-        }
-
-        return result;
+        return VectorSumGeneric(result);
     }
 }
