@@ -4,6 +4,7 @@ using SimdTest.Lib;
 namespace SimdTest.Benchmarks;
 
 [RPlotExporter]
+[MemoryDiagnoser]
 public class BenchmarkSumVsVectorSum
 {
     [Params(100, 10000, 1000000)] 
