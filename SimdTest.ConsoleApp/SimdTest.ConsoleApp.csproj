@@ -7,4 +7,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SimdTest.Lib\SimdTest.Lib.csproj" />
+    </ItemGroup>
+
 </Project>
