@@ -4,58 +4,47 @@ namespace SimdTest.Lib;
 
 public class VectorMath
 {
-    public static int VectorSum(int[] arr)
+    public static int VectorSum(Span<int> arr)
     {
-        var result = VectorSumGeneric<int>(arr);
+        var result = VectorSumGeneric(arr);
 
-        var sum = default(int);
-
-        for (var i = 0; i < result.Length; i++)
-        {
-            sum += result[i];
-        }
+        var sum = ForSumHelper.ForSum(result);
 
         return sum;
     }
 
-    public static long VectorSum(long[] arr)
+    public static long VectorSum(Span<long> arr)
     {
-        var result = VectorSumGeneric<long>(arr);
+        var result = VectorSumGeneric(arr);
 
-        var sum = default(long);
-
-        for (var i = 0; i < result.Length; i++)
-        {
-            sum += result[i];
-        }
+        var sum = ForSumHelper.ForSum(result);
 
         return sum;
     }
 
-    public static double VectorSum(double[] arr)
+    public static short VectorSum(Span<short> arr)
     {
-        var result = VectorSumGeneric<double>(arr);
+        var result = VectorSumGeneric(arr);
 
-        var sum = default(double);
-
-        for (var i = 0; i < result.Length; i++)
-        {
-            sum += result[i];
-        }
+        var sum = ForSumHelper.ForSum(result);
 
         return sum;
     }
 
-    public static float VectorSum(float[] arr)
+    public static double VectorSum(Span<double> arr)
     {
-        var result = VectorSumGeneric<float>(arr);
+        var result = VectorSumGeneric(arr);
 
-        var sum = default(float);
+        var sum = ForSumHelper.ForSum(result);
 
-        for (var i = 0; i < result.Length; i++)
-        {
-            sum += result[i];
-        }
+        return sum;
+    }
+
+    public static float VectorSum(Span<float> arr)
+    {
+        var result = VectorSumGeneric(arr);
+
+        var sum = ForSumHelper.ForSum(result);
 
         return sum;
     }

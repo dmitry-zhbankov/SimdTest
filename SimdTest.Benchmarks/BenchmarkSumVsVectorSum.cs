@@ -7,116 +7,77 @@ namespace SimdTest.Benchmarks;
 [MemoryDiagnoser]
 public class BenchmarkSumVsVectorSum
 {
-    [Params(100, 10000, 1000000)] 
+    [Params(100, 10000, 1000000)]
     public int N;
 
-    private int[] intArr;
-    private long[] longArr;
-    private float[] floatArr;
-    private double[] doubleArr;
+    private int[] _intArr;
+    private long[] _longArr;
+    private short[] _shortArr;
+    private float[] _floatArr;
+    private double[] _doubleArr;
 
     [GlobalSetup]
     public void Setup()
     {
         var random = new Random();
 
-        intArr = new int[N];
-        longArr = new long[N];
-        doubleArr = new double[N];
-        floatArr = new float[N];
+        _intArr = new int[N];
+        _longArr = new long[N];
+        _shortArr = new short[N];
+        _floatArr = new float[N];
+        _doubleArr = new double[N];
 
-        for (int i = 0; i < intArr.Length; i++)
+        for (int i = 0; i < _intArr.Length; i++)
         {
             var randNum = random.Next(1, 10);
 
-            intArr[i] = randNum;
-            longArr[i] = randNum;
-            doubleArr[i] = randNum;
-            floatArr[i] = randNum;
+            _intArr[i] = randNum;
+            _longArr[i] = randNum;
+            _shortArr[i] = (short)randNum;
+            _doubleArr[i] = randNum;
+            _floatArr[i] = randNum;
         }
     }
 
     [Benchmark]
-    public int IntSum() => intArr.Sum();
+    public int IntLinqSum() => _intArr.Sum();
 
     [Benchmark]
-    public int IntVectorSum() => VectorMath.VectorSum(intArr);
+    public int IntVectorSum() => VectorMath.VectorSum(_intArr);
 
     [Benchmark]
-    public int IntForEachSum() => ForEachSum(intArr);
+    public int IntForEachSum() => ForSumHelper.ForSum(_intArr);
 
     [Benchmark]
-    public long LongSum() => longArr.Sum();
+    public long LongLinqSum() => _longArr.Sum();
 
     [Benchmark]
-    public long LongVectorSum() => VectorMath.VectorSum(longArr);
+    public long LongVectorSum() => VectorMath.VectorSum(_longArr);
 
     [Benchmark]
-    public long LongForEachSum() => ForEachSum(longArr);
+    public long LongForSum() => ForSumHelper.ForSum(_longArr);
 
     [Benchmark]
-    public double DoubleSum() => doubleArr.Sum();
+    public short ShortVectorSum() => VectorMath.VectorSum(_shortArr);
 
     [Benchmark]
-    public double DoubleVectorSum() => VectorMath.VectorSum(doubleArr);
+    public short ShortForSum() => ForSumHelper.ForSum(_shortArr);
 
     [Benchmark]
-    public double DoubleForEachSum() => ForEachSum(doubleArr);
+    public double DoubleLinqSum() => _doubleArr.Sum();
 
     [Benchmark]
-    public float FloatSum() => floatArr.Sum();
+    public double DoubleVectorSum() => VectorMath.VectorSum(_doubleArr);
 
     [Benchmark]
-    public float FloatVectorSum() => VectorMath.VectorSum(floatArr);
+    public double DoubleForSum() => ForSumHelper.ForSum(_doubleArr);
 
     [Benchmark]
-    public float FloatForEachSum() => ForEachSum(floatArr);
+    public float FloatLinqSum() => _floatArr.Sum();
 
-    private int ForEachSum(int[] arr)
-    {
-        var sum = default(int);
+    [Benchmark]
+    public float FloatVectorSum() => VectorMath.VectorSum(_floatArr);
 
-        for (int i = 0; i < arr.Length; i++)
-        {
-            sum += arr[i];
-        }
-
-        return sum;
-    }
-
-    private long ForEachSum(long[] arr)
-    {
-        var sum = default(long);
-
-        for (int i = 0; i < arr.Length; i++)
-        {
-            sum += arr[i];
-        }
-
-        return sum;
-    }
-
-    private double ForEachSum(double[] arr)
-    {
-        var sum = default(double);
-
-        for (int i = 0; i < arr.Length; i++)
-        {
-            sum += arr[i];
-        }
-
-        return sum;
-    }
-
-    private float ForEachSum(float[] arr)
-    {
-        var sum = default(float);
-
-        for (int i = 0; i < arr.Length; i++)
-        {
-            sum += arr[i];
-        }
-
-        return sum;
-    }
+    [Benchmark]
+    public float FloatForSum() => ForSumHelper.ForSum(_floatArr);
 }
