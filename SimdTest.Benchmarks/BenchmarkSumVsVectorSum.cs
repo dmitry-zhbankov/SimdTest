@@ -7,8 +7,7 @@ namespace SimdTest.Benchmarks;
 [MemoryDiagnoser]
 public class BenchmarkSumVsVectorSum
 {
-    [Params(100, 10000, 1000000)]
-    public int N;
+    [Params(100, 10000, 1000000)] public int N;
 
     private int[] _intArr;
     private long[] _longArr;
@@ -43,41 +42,41 @@ public class BenchmarkSumVsVectorSum
     public int IntLinqSum() => _intArr.Sum();
 
     [Benchmark]
-    public int IntVectorSum() => VectorMath.VectorSum<int>(_intArr);
+    public int IntForEachSum() => ForSumHelper.ForSum(_intArr);
 
     [Benchmark]
-    public int IntForEachSum() => ForSumHelper.ForSum(_intArr);
+    public int IntVectorSum() => VectorMath.VectorSum<int>(_intArr);
 
     [Benchmark]
     public long LongLinqSum() => _longArr.Sum();
 
     [Benchmark]
-    public long LongVectorSum() => VectorMath.VectorSum<long>(_longArr);
-
-    [Benchmark]
     public long LongForSum() => ForSumHelper.ForSum(_longArr);
 
     [Benchmark]
-    public short ShortVectorSum() => VectorMath.VectorSum<short>(_shortArr);
+    public long LongVectorSum() => VectorMath.VectorSum<long>(_longArr);
 
     [Benchmark]
     public short ShortForSum() => ForSumHelper.ForSum(_shortArr);
 
     [Benchmark]
-    public double DoubleLinqSum() => _doubleArr.Sum();
+    public short ShortVectorSum() => VectorMath.VectorSum<short>(_shortArr);
 
     [Benchmark]
-    public double DoubleVectorSum() => VectorMath.VectorSum<double>(_doubleArr);
+    public double DoubleLinqSum() => _doubleArr.Sum();
 
     [Benchmark]
     public double DoubleForSum() => ForSumHelper.ForSum(_doubleArr);
 
     [Benchmark]
+    public double DoubleVectorSum() => VectorMath.VectorSum<double>(_doubleArr);
+
+    [Benchmark]
     public float FloatLinqSum() => _floatArr.Sum();
 
     [Benchmark]
-    public float FloatVectorSum() => VectorMath.VectorSum<float>(_floatArr);
+    public float FloatForSum() => ForSumHelper.ForSum(_floatArr);
 
     [Benchmark]
-    public float FloatForSum() => ForSumHelper.ForSum(_floatArr);
+    public float FloatVectorSum() => VectorMath.VectorSum<float>(_floatArr);
 }
