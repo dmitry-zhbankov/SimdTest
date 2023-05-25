@@ -36,7 +36,7 @@ internal class Program
         Console.WriteLine();
         stopwatch.Restart();
 
-        var sum2 = VectorMath.VectorSum(arr);
+        var sum2 = VectorMath.VectorSum<int>(arr);
         var elapsed2 = stopwatch.ElapsedTicks;
 
         Console.WriteLine("VectorSum");
@@ -46,7 +46,7 @@ internal class Program
         stopwatch.Stop();
         Console.WriteLine();
 
-        Console.WriteLine($"VectorSum is {(double)(elapsed1 - elapsed2) / elapsed2:P} faster than Sum");
+        Console.WriteLine($"VectorSum is {(double)(elapsed1 - elapsed2) / elapsed2:P} faster than LinqSum");
 #endif
     }
 }

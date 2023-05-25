@@ -1,4 +1,4 @@
-﻿namespace SimdTest.Lib;
+﻿namespace SimdTest.Benchmarks;
 
 public class ForSumHelper
 {

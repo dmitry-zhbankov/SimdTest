@@ -43,7 +43,7 @@ public class BenchmarkSumVsVectorSum
     public int IntLinqSum() => _intArr.Sum();
 
     [Benchmark]
-    public int IntVectorSum() => VectorMath.VectorSum(_intArr);
+    public int IntVectorSum() => VectorMath.VectorSum<int>(_intArr);
 
     [Benchmark]
     public int IntForEachSum() => ForSumHelper.ForSum(_intArr);
@@ -52,13 +52,13 @@ public class BenchmarkSumVsVectorSum
     public long LongLinqSum() => _longArr.Sum();
 
     [Benchmark]
-    public long LongVectorSum() => VectorMath.VectorSum(_longArr);
+    public long LongVectorSum() => VectorMath.VectorSum<long>(_longArr);
 
     [Benchmark]
     public long LongForSum() => ForSumHelper.ForSum(_longArr);
 
     [Benchmark]
-    public short ShortVectorSum() => VectorMath.VectorSum(_shortArr);
+    public short ShortVectorSum() => VectorMath.VectorSum<short>(_shortArr);
 
     [Benchmark]
     public short ShortForSum() => ForSumHelper.ForSum(_shortArr);
@@ -67,7 +67,7 @@ public class BenchmarkSumVsVectorSum
     public double DoubleLinqSum() => _doubleArr.Sum();
 
     [Benchmark]
-    public double DoubleVectorSum() => VectorMath.VectorSum(_doubleArr);
+    public double DoubleVectorSum() => VectorMath.VectorSum<double>(_doubleArr);
 
     [Benchmark]
     public double DoubleForSum() => ForSumHelper.ForSum(_doubleArr);
@@ -76,7 +76,7 @@ public class BenchmarkSumVsVectorSum
     public float FloatLinqSum() => _floatArr.Sum();
 
     [Benchmark]
-    public float FloatVectorSum() => VectorMath.VectorSum(_floatArr);
+    public float FloatVectorSum() => VectorMath.VectorSum<float>(_floatArr);
 
     [Benchmark]
     public float FloatForSum() => ForSumHelper.ForSum(_floatArr);

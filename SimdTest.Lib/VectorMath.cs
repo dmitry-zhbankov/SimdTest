@@ -4,52 +4,7 @@ namespace SimdTest.Lib;
 
 public class VectorMath
 {
-    public static int VectorSum(Span<int> arr)
-    {
-        var result = VectorSumGeneric(arr);
-
-        var sum = ForSumHelper.ForSum(result);
-
-        return sum;
-    }
-
-    public static long VectorSum(Span<long> arr)
-    {
-        var result = VectorSumGeneric(arr);
-
-        var sum = ForSumHelper.ForSum(result);
-
-        return sum;
-    }
-
-    public static short VectorSum(Span<short> arr)
-    {
-        var result = VectorSumGeneric(arr);
-
-        var sum = ForSumHelper.ForSum(result);
-
-        return sum;
-    }
-
-    public static double VectorSum(Span<double> arr)
-    {
-        var result = VectorSumGeneric(arr);
-
-        var sum = ForSumHelper.ForSum(result);
-
-        return sum;
-    }
-
-    public static float VectorSum(Span<float> arr)
-    {
-        var result = VectorSumGeneric(arr);
-
-        var sum = ForSumHelper.ForSum(result);
-
-        return sum;
-    }
-
-    private static T[] VectorSumGeneric<T>(Span<T> arr) where T : struct
+    public static T VectorSum<T>(Span<T> arr) where T : struct
     {
         var arrLength = arr.Length;
 
@@ -70,14 +25,21 @@ public class VectorMath
             sumVector += vectorToAdd;
         }
 
-        var resultArr = new T[vectorLength + remainingLength];
+        if (remainingLength > 0)
+        {
+            var remainingSpan = arr.Slice(arrLength - remainingLength);
 
-        sumVector.CopyTo(resultArr);
+            var remainingArr = new T[vectorLength];
 
-        var remainingArr = arr.Slice(arrLength - remainingLength).ToArray();
+            remainingSpan.CopyTo(remainingArr);
 
-        remainingArr.CopyTo(resultArr, vectorLength);
+            var remainingVector = new Vector<T>(remainingArr);
 
-        return resultArr;
+            sumVector += remainingVector;
+        }
+
+        var sum = Vector.Dot(sumVector, Vector<T>.One);
+
+        return sum;
     }
 }
